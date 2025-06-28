@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<List<String>> bottonNavItems = [
     ["home", "Home"],
     ["orders", "Orders"],
-    ["wallet", "Wallet"],
+    ["wallet", "Drivers"],
     ["profile", "Profile"],
   ];
 
@@ -97,8 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
       routes: [
         RideBookingRoute(),
         OrdersRoute(),
+        DriversRoute(),
         ProfileRoute(),
-        ProfileRoute(),
+        MapRoute(),
       ],
       transitionBuilder:
           (context, child, animation) =>
@@ -111,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
           drawer: const Drawer(
             width: 270,
             backgroundColor: AppColors.white,
-            // child: SideMenuWidget(),
+            child: AppDrawer(),
           ),
           appBar: AppBar(
             title: Row(
@@ -188,6 +189,130 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
       },
+    );
+  }
+}
+
+class AppDrawer extends StatelessWidget {
+  const AppDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: AppColors.white,
+      child: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Close button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Menu", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              // Profile
+              Row(
+                children: [
+                  const CircleAvatar(
+                    backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=3'), // Replace with actual photo
+                    radius: 24,
+                  ),
+                  const SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text('Sarah Johnson', style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text('sarah@example.com', style: TextStyle(color: Colors.grey)),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+
+              // Switch Account Section
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.all(12),
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    // User Account selected
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.deepPurple,
+                        backgroundColor: Colors.white,
+                        side: const BorderSide(color: Colors.deepPurple),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: () {},
+                      icon: const Icon(Icons.person),
+                      label: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('User Account'),
+                          SizedBox(width: 5),
+                          Icon(Icons.check, size: 18),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    // Driver Account
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.white,
+                        side: const BorderSide(color: Colors.white),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: () {},
+                      icon: const Icon(Icons.directions_car),
+                      label: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Driver Account'),
+                          // SizedBox(width: 5),
+                          // Icon(Icons.check, size: 18),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              // Menu Items
+              drawerItem(icon: Icons.history, text: "Your trips", onTap: () {}),
+              drawerItem(icon: Icons.credit_card, text: "Payment", onTap: () {}),
+              drawerItem(icon: Icons.card_giftcard, text: "Promotions", onTap: () {}),
+              drawerItem(icon: Icons.settings, text: "Settings", onTap: () {}),
+              drawerItem(icon: Icons.help_outline, text: "Help", onTap: () {}),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget drawerItem({required IconData icon, required String text, required VoidCallback onTap}) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.black54),
+      title: Text(text),
+      onTap: onTap,
     );
   }
 }

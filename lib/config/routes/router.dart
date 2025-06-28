@@ -22,6 +22,8 @@ class AppRouter extends $AppRouter {
         ),
         AutoRoute(page: OrdersRoute.page, path: 'orders'),
         AutoRoute(page: ProfileRoute.page, path: 'profile'),
+        AutoRoute(page: DriversRoute.page, path: 'drivers'),
+        AutoRoute(page: MapRoute.page, path: 'map'),
       ],
     ),
     // settings

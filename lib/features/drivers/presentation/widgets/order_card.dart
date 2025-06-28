@@ -149,11 +149,7 @@ class OrderCard extends StatelessWidget {
                       child: WButton(
                         text: "Track Trip",
                         color: AppColors.F3F4F6,
-                        onTap:
-                            () => {
-                              print("map"),
-                              context.router.pushNamed('/map'),
-                            },
+                        onTap: () => context.router.pushNamed('/map'),
                       ),
                     ),
                     SizedBox(width: 8),
